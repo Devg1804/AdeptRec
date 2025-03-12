@@ -7,4 +7,7 @@ pypdf
 python-dotenv
 pandas
 flask
+sentence-transformers 
+langchain-huggingface
+
 -e .
