@@ -9,5 +9,5 @@ pandas
 flask
 sentence-transformers 
 langchain-huggingface
-
+gunicorn
 -e .
