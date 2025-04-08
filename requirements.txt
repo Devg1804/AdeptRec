@@ -10,4 +10,5 @@ flask
 sentence-transformers 
 langchain-huggingface
 gunicorn
+flask-cors
 -e .

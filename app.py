@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from chatbot.retrieval_generation import generation
 from chatbot.data_ingestion import data_ingestion
+from flask_cors import CORS
+
 
 
 vstore = data_ingestion("done")
@@ -8,6 +10,7 @@ chain = generation(vstore)
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
