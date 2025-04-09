@@ -2,22 +2,34 @@ from flask import Flask, render_template, request
 from chatbot.retrieval_generation import generation
 from chatbot.data_ingestion import data_ingestion
 from flask_cors import CORS
+import logging
 
 
+# vstore = data_ingestion("done")
+# chain = generation(vstore)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-vstore = data_ingestion("done")
-chain = generation(vstore)
+try:
+    vstore = data_ingestion("done")
+    logging.info("Vector store initialized successfully.")
+    chain = generation(vstore)
+    logging.info("Generation chain initialized successfully.")
+except Exception as e:
+    logging.error(f"Error during initialization: {e}")
+    # Potentially exit the application if initialization fails
+    # import sys
+    # sys.exit(1)
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
-@app.route("/")
-def index():
-    return "Hello from the backend!"
 # @app.route("/")
 # def index():
-#     return render_template("index.html")
+#     return "Hello from the backend!"
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
 
@@ -42,4 +54,4 @@ def chat():
 
 if __name__ == '__main__':
     
-    app.run(host="0.0.0.0", port=10000, debug= True)
+    app.run(host="0.0.0.0", port=10000, debug= False)
