@@ -18,21 +18,24 @@ def index():
 
 
 
-@app.route("/get", methods = ["POST", "GET"])
+@app.route("/get", methods=["POST", "GET"])
 def chat():
-   
-   if request.method == "POST":
-      msg = request.form["msg"]
-      input = msg
+    if request.method == "POST":
+        msg = request.form["msg"]
+        input = msg
+        print(f"Received message: {input}")  # Add this line
 
-      result = chain.invoke(
-         {"input": input},
-    config={
-        "configurable": {"session_id": "dhruv"}
-    },
-)["answer"]
-
-      return str(result)
+        try:
+            result = chain.invoke(
+                {"input": input},
+                config={"configurable": {"session_id": "dhruv"}},
+            )["answer"]
+            print(f"Chatbot result: {result}")  # Add this line
+            return str(result)
+        except Exception as e:
+            print(f"Error during chatbot processing: {e}")
+            return "Error processing your request." # Return an error to the frontend
+    return "Please send a POST request with a message."
 
 if __name__ == '__main__':
     
