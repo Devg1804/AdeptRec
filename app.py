@@ -14,7 +14,10 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return "Hello from the backend!"
+# @app.route("/")
+# def index():
+#     return render_template("index.html")
 
 
 
